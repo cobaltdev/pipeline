@@ -1,0 +1,4 @@
+pipeline
+========
+
+Bamboo Pipeline Plugin
