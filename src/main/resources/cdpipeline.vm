@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+	<!-- main page of the CDPipeline plugin which displays relevant information on builds-->
+	<head>
+		<title>Pipeline</title> <!-- update once we have an agreed name -->
+		<meta name="decorator" content="atl.general">
+		
+		<!-- css -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		
+		<!-- scripts -->
+		${webResourceManager.requireResource("com.cobalt.cdpipeline.cdpipeline:cdpipeline-resources")}
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+	</head>
+
+
+	<body>
+	<div ng-app="CDPipeline" id="ng-app">
+
+		<!-- the pop up window -->
+		<div id="popUp" ng-controller="ModalController">
+
+			<!-- pop up window for information icon -->
+		    <script type="text/ng-template" id="Info.html">
+		        <div class="modal-body">
+		        	<div class="about-page">
+			        	<header>
+			        	<h3>
+			        		About Pipeline</br>
+			        		<version>Version 1.0</version>
+			        	</h3>
+			        	</header>
+			        	<content>
+			        		<p> <strong>Pipeline</strong> is a real-time wallbaord that displays build progress in an intuitive pipeline view and encourages developers to contribute to their projects frequently and incrementally by visualizing their continuous delivery practices.
+			        		</p>
+			        		<p>
+			        			Need Help?
+			        			<a href="https://github.com/cobaltdev/pipeline/wiki">documentation page</a></br>
+			        			<small>You can find description in details, installation instruction and user guide here.</small>
+			        		</p>
+			        		<p>
+			        			Developers?
+			        			<a href="https://github.com/cobaltdev/pipeline">github source page</a></br>
+			        			<small>Pipeline is a open source Bamboo plugin, feel free to change and improve it!</small>
+			        		</p>
+			        		<p>
+			        			Contact us?
+			        			<a href="mailto:pipelineplugin@cobalt.com">email us</a></br>
+			        			<small>Please contact us if you have any questions or concerns.</small>
+			        		</p>
+			        	</content>
+			        	<footer>
+			        		<div id="superpipe-logo"></div></br>
+			        		Team Superpipe
+			        	</footer>
+			        </div>
+		        </div>
+		    </script>
+
+		    <!-- pop up window for changes -->
+		    <script type="text/ng-template" id="Changes.html">
+		        <div class="modal-body">
+		        	<div class="changes-page">
+	        			{{ contentData.planKey }}
+			        </div>
+		        </div>
+		    </script>
+
+		    <!-- pop up window for project, plan and build -->
+		    <script type="text/ng-template" id="Details.html">
+		        <div class="modal-body">
+		        	<iframe src="{{url}}"></iframe>
+		        </div>
+		    </script>
+
+			<!-- a floating menu on the left -->
+			<div>
+				<ul id="menu">
+					<li ng-click="toggleHeader()"><a><i id="fullscreenIcon" class="fa fa-expand fa-2x"></i></a></li>
+					<li ng-click="modalOpenContent('sm', '', 'Info.html')"><a><i class="fa fa-question fa-2x"></i></a></li>				
+				</ul>
+			</div>
+
+			<!-- search button --> 
+	       	<div id="search">
+	        	<input ng-model="searchString" placeholder="Enter a plan/project/person" type="text">
+	          	<i class='fa fa-search fa-2x'></i>
+	     	</div>
+	     	
+			<!-- scroll-to-top button --> 
+			<a href="#" id="scroll-to-top"><i class="fa fa-angle-up fa-2x"></i></a>
+
+			<!-- board section to display all plan's initial info -->
+	        <div id="board" class="container-fluid" ng-controller="BoardController" ng-style="{height: ((results.resp.length * 131) + 'px')}">
+
+	     	 	<div id="unloadedBoard" ng-hide="dataLoaded">
+	     			<div class="loader">Loading...</div>
+					<div id="loadingText">loading...</div>
+	       		</div>
+
+	            <div ng-show="dataLoaded" id="loadedBoard" class="animate-repeat" ng-repeat="result in results.resp | orderBy:'lastUpdateTime':true | searchFor:searchString | progressToFront:'currentBuild' | emptyToEnd:'lastUpdateTime' track by result.planKey" ng-style="{top: (($index * 131) + 'px')}">
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+							<!-- project/plan column -->
+							<div class="col-md-2">
+								<projectPlan>
+									<project>
+										<a ng-click="modalOpenUrl('../../browse/' + result.projectKey)">
+											{{ result.projectName }}
+										</a>
+									</project><br>
+									<plan>
+										<a ng-click="modalOpenUrl('../../browse/' + result.planKey)">
+											{{ result.planName }}
+										</a>
+									</plan>
+								</projectPlan>
+							</div>
+							
+							<!-- last deployment column -->
+							<div class="col-md-3">
+								<lastDeploy ng-switch="result.currentBuild.cdpipelineState">
+									<span ng-switch-default>
+										<span class="aui-lozenge aui-lozenge-complete deploy-label">Since Last Completion</span><br>
+										<dayChange>
+											<days ng-switch="result.daysSinceDeploymentFromCurrent">
+												<span ng-switch-when="-1">--</span>
+												<span ng-switch-default>{{ result.daysSinceDeploymentFromCurrent }}</span></days><small> days</small>
+												<changes>{{ result.numChanges }}</changes><small> changes</small>
+										</dayChange>
+									</span>
+									<span ng-switch-when="CD_SUCCESS">
+										<span class="aui-lozenge aui-lozenge-complete deploy-label deploy-success">Current Completion</span><br>
+										<dayChange>
+											<days ng-switch="result.daysSinceLastUpdateFromCurrent">
+												<span ng-switch-when="-1">--</span>
+												<span ng-switch-default>{{ result.daysSinceLastUpdateFromCurrent }}</span></days><small> days ago</small>
+												<changes>{{ result.numChanges }}</changes><small> changes</small>
+										</dayChange>
+									</span>
+								</lastDeploy>
+							</div>
+
+							<!-- current build column -->
+							<div class="col-md-1">		
+								<div class="build-state-icon" ng-switch="result.currentBuild.cdpipelineState">
+									<span ng-switch-when="CD_SUCCESS" class="icon icon-successful" title="Current build is successful"></span>
+									<span ng-switch-when="CD_FAILED" class="icon icon-failed" title="Current build failed"></span>
+									<span ng-switch-when="CD_IN_PROGRESS" class="icon icon-building" title="Current build is building"></span>
+									<span ng-switch-when="CD_MANUALLY_PAUSED" class="icon icon-successfulPartial" title="Current build stopped at manual stage"></span>
+									<span ng-switch-when="CD_QUEUED" class="icon icon-queued" title="Current build is queued"></span>
+									<span ng-switch-when="CD_NOT_BUILT" class="icon icon-disabled" title="Current build is not built"></span>
+								</div>
+								
+								<buildNumber ng-switch="result.currentBuild.buildNumber">
+									<a ng-switch-when="-1" ng-click="modalOpenUrl('../../browse/' + result.planKey + '/latest')">--</a>
+									<a ng-switch-default ng-click="modalOpenUrl('../../browse/' + result.currentBuild.buildKey)">#{{ result.currentBuild.buildNumber }}</a>
+								</buildNumber>
+
+								<div ng-if="result.currentBuild.timeRemaining" class="build-progress-bar" ng-switch="result.currentBuild.cdpipelineState">
+									<div ng-if="result.currentBuild.timeRemaining" ng-switch-when="CD_IN_PROGRESS" class="background-progress" ng-style="{'width' : (result.currentBuild.percentageCompleted * 100 | percentageLimit) + '%'}">
+									</div>
+									<div ng-switch-when="CD_IN_PROGRESS" class="timeRemaining" title="{{ result.currentBuild.timeRemaining }}">{{ result.currentBuild.timeRemaining }}</div>
+									<div ng-switch-when="CD_QUEUED" class="timeRemaining" title="{{ result.currentBuild.timeRemaining }}">Queued...</div>
+								</div>
+							</div>
+								
+							<!-- contributor/pipeline column -->
+							<div class="col-md-6">	
+								<!-- contributors -->
+								<div class="contributorList">
+									<span ng-repeat="contributor in result.contributorsSortedByLatestCommit track by contributor.username" class="aui-avatar aui-avatar-medium CDcontributor" tooltip="{{ contributor.fullname }}">
+										<contributor username="{{ contributor.username }}" numCommits=" {{contributor.numCommits }}">
+											<a href="{{ contributor.profilePageUrl }}">
+												<span class="aui-avatar-inner">
+													<img alt="{{ contributor.fullname }}" src="{{ contributor.pictureUrl }}" />
+												</span>
+											</a>
+										</contributor>
+									</span>
+								</div>
+						
+								<!-- pipeline stages -->
+								<div class="pipelineContainer">
+									<span ng-repeat="pipe in result.pipelineStages track by pipe.stageName">
+										<!-- show the lines between stages-->
+										<div ng-if="!$first" class="stageLine {{pipe.cdpipelineState}}" ng-style="{'width' : (1/(result.pipelineStages.length - 1) * 90 | number: 0) + '%', 'left' : (5 + ($index - 1) * (1/(result.pipelineStages.length - 1) * 90) | number: 0 )+ '%'}">
+											<div class="innerStageLine {{pipe.cdpipelineState}}"></div>
+										</div>
+
+										<!-- show stage circle and name-->
+										<div class="stage {{pipe.cdpipelineState}}" ng-style="{'left' : $index * ((result.pipelineStages.length | pipelineWidth) * 90) + '%'}">
+											<div class="stageCircle {{pipe.cdpipelineState}}" ng-switch="pipe.cdpipelineState">
+												<div class="quarter top-anim"></div>
+												<div class="quarter top-anim"></div>
+												<div class="quarter bottom-anim"></div>
+												<div class="quarter bottom-anim"></div>
+												<div class="full"></div>
+												<span ng-switch-when="CD_MANUALLY_PAUSED" class="glyphicon glyphicon-hand-right pausedIcon" tooltip="Manual Stage"></span>
+											</div>
+											<div class="stageNameContainer">
+												<stageName ng-attr-title="{{ pipe.stageName }}">
+													<strong>{{ pipe.stageName }}</strong>
+												</stageName>
+											</div>
+										</div>
+									</span>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</body>
+
+</html>

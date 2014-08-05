@@ -1,0 +1,849 @@
+.nav, .pagination, .carousel, .panel-title a { 
+	cursor: pointer; 
+}
+
+body {
+	background-color: #ebf2f9;
+	margin-left: 5px;
+}
+
+.aui-header-logo-device {
+	margin-top: 8px;
+}
+
+#content {
+	min-width: 1200px;
+}
+
+#board {
+	position: relative;
+	width: 86%;
+	padding: 0px;
+	min-width: 1160px;
+}
+
+/*-------------------------
+	plan, project
+--------------------------*/
+
+project {
+	font-size: 10pt;
+}
+
+plan {
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+projectPlan a {
+	color: #333333 !important;
+}
+
+projectPlan a:hover {
+	color: #205081 !important;
+}
+
+/*-------------------------
+	day, change
+--------------------------*/
+
+days, changes {
+	font-size: 28pt;
+	font-style: italic;
+	font-weight: bold;
+}
+
+changes {
+	margin-left: 10px;
+}
+
+/*-------------------------
+	buildnumber
+--------------------------*/
+.build-state-icon {
+	position: absolute;
+	left: -6px;
+	top: 17px;
+}
+
+buildNumber {
+	font-size: 20pt;
+}
+
+buildNumber a {
+	color: #205081 !important;
+	position: absolute;
+	top: 35px;
+}
+
+buildNumber a:hover {
+	color: #428bca !important;
+}
+
+
+/*-------------------------
+	build progress bar
+--------------------------*/
+
+.build-progress-bar {
+	position: absolute;
+	top: 75px;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	border-radius: 3px;
+	background-color: #e0e0e0;
+}
+
+.background-progress {
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #b3d8ff;
+	border-radius: 3px;
+	z-index: 0;
+	-webkit-animation: fadeInAndOut 2.5s infinite;
+	-moz-animation: fadeInAndOut 2.5s infinite;
+	-o-animation: fadeInAndOut 2.5s infinite;
+	-ms-animation: fadeInAndOut 2.5s infinite;
+	animation: fadeInAndOut 2.5s infinite;
+}
+
+.timeRemaining {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	margin: 2px;
+	text-align: center;
+	font-size: 8pt;
+	color: #707070;
+	z-index: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@keyframes fadeInAndOut {
+	0% {background-color: #9ECDFF;}
+	50% {background-color: #CCE4FF;}
+	100% {background-color: #9ECDFF;}
+}
+
+@-webkit-keyframes fadeInAndOut {
+	0% {background-color: #9ECDFF;}
+	50% {background-color: #CCE4FF;}
+	100% {background-color: #9ECDFF;}
+}
+
+@-moz-animation fadeInAndOut {
+	0% {background-color: #8FC5FF;}
+	50% {background-color: #BFDEFF;}
+	100% {background-color: #8FC5FF;}
+}
+
+@-o-animation fadeInAndOut {
+	0% {background-color: #8FC5FF;}
+	50% {background-color: #BFDEFF;}
+	100% {background-color: #8FC5FF;}
+}
+
+@-ms-animation fadeInAndOut {
+	0% {background-color: #8FC5FF;}
+	50% {background-color: #BFDEFF;}
+	100% {background-color: #8FC5FF;}
+}
+
+/*-------------------------
+	pipelinestage stage
+--------------------------*/
+.pipelineContainer {
+	height: 50px;
+	margin-top: 25px;
+}
+
+div.stageLine {
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	margin-right: -4.5px;
+	z-index: 0;
+}
+
+.innerStageLine {
+	border-top: 3px solid #cccccc;
+	border-bottom: 2px solid #cccccc;
+}
+
+.stageLine > div.CD_SUCCESS, .stageLine > div.CD_FAILED, .stageLine > div.CD_IN_PROGRESS {
+	height: 7px;
+	background-color: #707070;
+	border-top: 2px solid #cccccc;
+	position: relative;
+	top: -1px;
+}
+
+div.stage {
+	width: 10%;
+	display: inline-block;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	z-index: 1;
+	height: 50px;
+	margin-right: -4.5px;
+}
+
+.stageCircle {
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	top: -10.5px;
+	content: "";
+	height: 21px;
+	width: 21px;
+	border: none;
+	border-radius: 100%;
+}
+
+/* Set text color of the stage names*/
+.CD_SUCCESS strong {
+	color: #0e631f;
+}
+
+.CD_FAILED strong {
+	color: #993228;
+}
+
+.CD_NOT_BUILT strong, .CD_MANUALLY_PAUSED strong {
+	color: #707070;
+}
+
+.CD_IN_PROGRESS strong {
+	color: #2d5785;
+}
+
+/* Set circle color*/
+.stage div.CD_SUCCESS {
+    background-color: #14892c;
+}
+
+.stage div.CD_FAILED {
+    background-color: #d04437;
+}
+
+.stage div.CD_NOT_BUILT {
+    background-color: #cccccc;
+}
+
+.stage div.CD_MANUALLY_PAUSED {
+    background-color: #cccccc;
+}
+
+.pausedIcon {
+	font-size: medium;
+	margin-top: 2px;
+	margin-left: 1px;
+	font-weight: bold !important;
+	color: #606060;
+}
+
+/*-------------------------
+	contributor
+--------------------------*/
+.contributorList {
+	height: 32px;
+	overflow: hidden;
+	margin-top: 3px;
+}
+
+.CDcontributor {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+/*------------------------------------
+	arrangement of one result panel
+--------------------------------------*/
+
+.aui-page-panel {
+	background-color: #f5f5f5;
+	margin-top: 0;
+}
+
+.panel-default, .panel-body {
+	height: 130px;
+}
+
+.col-md-1 {
+	width: 8% !important;
+}
+
+.col-md-2 {
+	width: 17% !important;
+}
+
+.col-md-3 {
+	width: 19% !important;
+}
+
+.col-md-6 {
+	width: 56% !important;
+}
+
+.col-md-0, .col-md-1, .col-md-2, .col-md-3, .col-md-4, 
+.col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, 
+.col-md-10, .col-md-11, .col-md-12 {
+	height: 100%;
+	vertical-align: middle;
+	float: left;
+}
+
+.col-md-1:before, .col-md-2:before, .col-md-3:before, .col-md-4:before {
+  content: '';
+  display: inline-block;
+  height: 100%; 
+  vertical-align: middle;
+  margin-right: -4.5px; /* Adjusts for spacing */
+    
+  /* For visualization 
+  background: #808080; width: 5px;
+  */
+ }
+
+.deploy-label {
+	max-height: 17px;
+	white-space: nowrap;
+}
+
+.deploy-success {
+	background-color: #8eb021;
+	border-color: #8eb021;
+}
+
+dayChange {
+	white-space: nowrap;
+}
+
+project, plan, .deploy-label, dayChange {
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: left;
+}
+
+buildNumber, lastDeploy, projectPlan, stageName {
+	display: inline-block;
+	margin-right: -4.5px;
+  	vertical-align: middle;
+  	width: 100%;
+}
+
+buildNumber a {
+	vertical-align: middle;
+}
+
+.animate-repeat {
+	position: absolute;
+	width: 100%;
+	height: 150px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.stageNameContainer {
+	width: 100%;
+	height: 40px;
+	overflow: hidden;
+	top: -10.5px;
+	position: relative;
+}
+
+.stageNameContainer:before {
+	content: '';
+  	display: inline-block;
+  	height: 100%; 
+  	vertical-align: middle;
+  	margin-right: -4.5px; /* Adjusts for spacing */
+}
+
+stageName {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/*------------------------------------
+	transition animation
+--------------------------------------*/
+
+.animate-repeat {
+    -webkit-transition: top 1.5s ease-in-out;
+	-moz-transition: top 1.5s ease-in-out;
+	transition: top 1.5s ease-in-out;
+}
+
+.animate-repeat.ng-enter, 
+.animate-repeat.ng-leave
+{ 
+    -webkit-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    -moz-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    -ms-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    -o-transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    transition: 400ms cubic-bezier(0.420, 0.000, 0.580, 1.000) all;
+    display: block;
+} 
+ 
+.animate-repeat.ng-enter.ng-enter-active, 
+.animate-repeat.ng-leave {
+    opacity: 1;
+    top: 0;
+    height: 30px;
+}
+ 
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-enter {
+    opacity: 0;
+    top: -50px;
+    height: 0px;
+}
+
+
+/*-------------------------
+	stage in progress
+--------------------------*/
+
+div.stage div.CD_IN_PROGRESS {
+	width: 21px;
+	height: 21px;
+	position: relative;
+	-webkit-animation: rotate 2.5s linear 0 infinite forwards;
+	-moz-animation: rotate 2.5s linear 0 infinite forwards;
+	-o-animation: rotate 2.5s linear 0 infinite forwards;
+	-ms-animation: rotate 2.5s linear 0 infinite forwards;	
+	animation: rotate 2.5s linear 0 infinite forwards;	
+}
+
+div.stage div.CD_IN_PROGRESS div.full {
+	width: 21px; 
+	height: 21px; 
+	position: absolute; 
+	border-radius: 50%; 
+	z-index: 2;
+}
+		
+div.stage div.CD_IN_PROGRESS div.quarter {
+	width: 10.5px;
+	height: 10.5px; 
+	position: absolute; 
+	z-index: 2;
+}
+
+/* Set the 4 parts of the stage circle */
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(1) {
+	border-top-left-radius: 100%;
+	background: #cccccc;
+}
+
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(2) {
+	border-top-right-radius: 100%;
+	top:0px;
+	left:50%;
+	background: #cccccc;		
+}
+
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(3) {
+	border-bottom-left-radius: 100%;
+	top: 50%;
+	left: 0;
+	background: #3b73af;		
+}
+		
+div.stage div.CD_IN_PROGRESS div.quarter:nth-of-type(4) {
+	border-bottom-right-radius: 100%;
+	top: 50%;
+	left: 50%;
+	background: #3b73af;		
+}
+
+/* Rotating the stage circles */	
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+	
+@-webkit-keyframes rotate {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); } 
+}
+
+@-moz-animation rotate {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+}
+
+@-o-animation rotate {
+  from { -o-transform: rotate(0deg); }
+  to { -o-transform: rotate(360deg); }
+}
+
+@-ms-animation rotate {
+  from { -ms-transform: rotate(0deg); }
+  to { -ms-transform: rotate(360deg); }
+}
+
+
+/*-------------------------
+	floating menu
+--------------------------*/
+
+#menu {
+	position: fixed;
+	top: 150px;
+	left: 0;
+	list-style-type: none;
+	padding: 0;
+	background: #ebf2f9;
+	z-index: 2;	
+}
+
+#menu li a {
+	display: block;
+	top: 50%;
+	height: 55px;
+	width: 55px;
+	line-height: 55px;
+	text-align: center;
+	color: #999;
+	position: relative;
+	border: 1px #e9e9e9 solid;
+	border-bottom: 0px;
+	transition: background 0.1s ease-in-out;
+	-webkit-transition: background 0.1s ease-in-out;
+	-moz-transition: background 0.1s ease-in-out;
+	-o-transition: background 0.1s ease-in-out;
+	-ms-transition: background 0.1s ease-in-out;
+	padding: 5px;
+}
+
+#menu li a:hover{
+	background: #47a3da;
+	color: #fff;
+}
+
+
+/*-------------------------
+	modal window
+--------------------------*/
+
+.modal {
+	overflow-x: auto !important;
+}
+
+.modal-lg {
+	width: 80% !important;
+	overflow: scroll;
+	height: 90%;
+}
+.modal-sm {
+	width: 500px !important;
+}
+
+.modal-content, .modal-body {
+	height: 100% !important;
+	padding: 0 !important;
+}
+
+a#closeIcon {
+	float: right;
+	color: #333333 !important;
+}
+
+a#closeIcon:hover {
+	color: #205081 !important;
+}
+
+iframe {
+	position: absolute;
+	width:100%;
+	height:100%;
+
+	border: 5px solid white;
+	border-radius: 5px;
+
+	background-color: white;
+}
+
+.about-page {
+	margin: 20px;
+	margin-bottom: 15px;
+}
+
+.about-page h3 {
+	text-align: center;
+}
+
+.about-page content {
+	text-indent: 35px;
+	font-size: 11pt;
+	text-align: justify;
+}
+
+.about-page content small {
+	margin-left: 35px;
+}
+
+.about-page version {
+	font-size: 8pt;
+	color: #707070;
+}
+
+.about-page a {
+	margin-left: 10px;
+}
+
+.about-page footer {
+	text-align: center;
+	color: #707070;
+	font-size: 10pt;
+}
+
+#superpipe-logo {
+	background-image: url(images/superpipe-logo-sm.png);
+	height: 72px;
+	width: 72px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: 10px;
+}
+
+/*-------------------------
+	search button
+--------------------------*/
+
+#search {
+  	overflow: hidden;
+	transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	-webkit-transition: all 0.35s;
+	-o-transition: all 0.35s;
+	-ms-transition: all 0.35s;   
+    position: fixed;
+  	left: 0px;	
+	top: 260px;
+	background: #ebf2f9;		
+	height: 55px;
+	width: 55px;
+  	z-index: 2;
+  	border: 1px #e9e9e9 solid;
+  	text-align: center;
+    color: #999;
+  	padding: 10px;	
+}
+
+#search:hover {
+  	width: 260px;
+}
+
+#search:hover input {
+  	display: inline-block;
+  	width: 200px;
+  	padding: 10px;
+  	position: fixed;
+	left: 10px;
+}
+
+#search:hover i.fa-search {
+	padding-left: 7px;
+	position: relative;
+	left: 100px;
+}
+
+input {
+	width: 0;
+	height: 35px;
+	margin: 10px;
+	color: #999;
+	font-size: 30px;
+	padding: 0px;
+	border: 0;
+	border-radius: 5px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2) inset;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+	transition: all 0.25s; 
+	-moz-transition: all 0.25s;
+	-webkit-transition: all 0.25s;
+	-o-transition: all 0.25s;
+	-ms-transition: all 0.25s;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: 0 -1px 1px rgba(255, 255, 255, 0.25), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+
+/*-------------------------
+   scroll-to-top button
+--------------------------*/
+#scroll-to-top {
+	position: fixed;
+	bottom: 50px;
+	left: 10px;
+	display:none;
+	color: #999;
+	font-size: 30px;
+	z-index: 2;
+}
+
+/*-------------------------
+   page loading animation
+--------------------------*/
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+}
+
+.loader:before,
+.loader:after {
+  position: absolute;
+  content: '';
+}
+
+.loader:before {
+  width: 5.2em;
+  height: 10.2em;
+  background: #f5f5f5;
+  border-radius: 10.2em 0 0 10.2em;
+  top: -0.1em;
+  left: -0.1em;
+  -webkit-transform-origin: 5.2em 5.1em;
+  transform-origin: 5.2em 5.1em;
+  -webkit-animation: load2 2s infinite ease 1.5s;
+  animation: load2 2s infinite ease 1.5s;
+}
+
+.loader {
+  font-size: 11px;
+  text-indent: -99999em;
+  margin: 5em auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 .75em #3b73af;
+}
+
+.loader:after {
+  width: 5.2em;
+  height: 10.2em;
+  background: #f5f5f5;
+  border-radius: 0 10.2em 10.2em 0;
+  top: -0.1em;
+  left: 5.1em;
+  -webkit-transform-origin: 0px 5.1em;
+  transform-origin: 0px 5.1em;
+  -webkit-animation: load2 2s infinite ease;
+  animation: load2 2s infinite ease;
+}
+
+@-webkit-keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+#loadingText {
+	width: 100px;
+	margin: 0px;
+	padding: 0px;
+	margin-top: -40px;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: bold;
+	font-size: 14pt;
+	color: #205081;
+}
+
+
+/*-------------------------
+   list of changes
+--------------------------*/
+
+table {
+
+  text-align: left;
+  margin: 0 auto;
+  max-width: 85%;
+  left: 10%;
+  right: 5%;
+  top: 200px;
+}
+
+td, th {
+  padding: 16px;
+  width: 200px;
+  line-height: 18px;
+}
+
+thead {
+  display: block;
+}
+
+th {
+  border-bottom: 0;
+  color: white;
+  color: #444;
+  font-weight: 700;
+  text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+th:last-child {
+  width: 219px;
+}
+
+tbody {
+  width: 100%;
+  overflow: auto;
+  height: 400px;
+  display: block;
+}
+
+.changeList .author {
+	width: 15%;
+}
+
+.changeList .buildNumber {
+	width: 10%;
+}
+
+.changeList .comment {
+	width: 55%;
+}
+
+.changeList .date {
+	width: 20%;
+}
+
+.changeList .author, .changeList .buildNumber, .changeList .comment, .changeList .date{
+	margin: 5px;
+	padding: 5px;
+}

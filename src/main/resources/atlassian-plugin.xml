@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="cdpipeline"/>
+  <!-- add our web resources -->
+  <web-resource key="cdpipeline-resources" name="cdpipeline Web Resources">
+  	
+  	<dependency>com.atlassian.auiplugin:ajs</dependency>
+  	
+  	<resource type="download" name="angular.js" location="/js/angular.js"/>
+  	<resource type="download" name="angular-animate.js" location="/js/angular-animate.js"/>
+  	<resource type="download" name="angular.ui.min.js" location="/js/angular.ui.min.js"/>
+  	
+  	<resource type="download" name="plugin.js" location="/js/plugin.js"/>
+  	<resource type="download" name="boardcontroller.js" location="/js/boardcontroller.js"/>
+  	<resource type="download" name="maincontroller.js" location="/js/modalcontroller.js"/>
+  	
+    <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
+    <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
+   
+    <resource type="download" name="images/" location="/images"/>
+    
+    <context>cdpipeline</context>
+  </web-resource>
+  <!-- publish our component -->
+  <component key="myPluginComponent" class="com.cobalt.bamboo.plugin.pipeline.MyPluginComponentImpl" public="true">
+    <interface>com.cobalt.bamboo.plugin.pipeline.MyPluginComponent</interface>
+  </component>
+  <!-- import from the product container -->
+  <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+  <web-item name="Pipeline" i18n-name-key="cd-pipeline.name" key="cd-pipeline" section="header.global.primary" weight="1000">
+    <description key="cd-pipeline.description">The CD Pipeline Plugin</description>
+    <label key="cd-pipeline.label"/>
+    <link linkId="cd-pipeline-link">/plugins/servlet/cdpipeline</link>
+  </web-item>
+  
+  <component-import key="userManager" interface="com.atlassian.sal.api.user.UserManager" />
+  <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider" />
+  <component-import key="renderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+  
+  <component-import key="planManager" interface="com.atlassian.bamboo.plan.PlanManager" />
+  <component-import key="resultsSummaryManager" interface="com.atlassian.bamboo.resultsummary.ResultsSummaryManager" />
+  <component-import key="jiraApplinksService" interface="com.atlassian.bamboo.applinks.JiraApplinksService" />
+  
+  <component-import key="planExecutionManager" interface="com.atlassian.bamboo.plan.PlanExecutionManager" />
+  
+  <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.bamboo.plugin.pipeline.servlet.MainPage">
+    <description key="main-page.description">The Main Page Plugin</description>
+    <url-pattern>/cdpipeline</url-pattern>
+  </servlet>
+</atlassian-plugin>
