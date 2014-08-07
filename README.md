@@ -48,13 +48,13 @@ Click Close in the Installed and ready to go dialog.</li>
 	(Make sure you use "atlas-run-standalone --product bamboo" instead of "atlas-run-standalone --product jira")
 </li>
 <li>In the same directory as your stand-alone instance, download the plugin <br>
->> `git clone https://github.com/cobaltdev/pipeline.git` <br>
+>> git clone https://github.com/cobaltdev/pipeline.git <br>
 Run the plugin on the standalone instance <br>
 >> cd pipeline <br>
 >> atlas-run <br>
 You may notice a long initial load up time.  After it is successfully launched, navigate to 
-localhost:6990/bamboo on your browser. <br>
-You will see the plugin in the top menu bar labeled as "Pipeline". </li>
+<strong> localhost:6990/bamboo </strong> on your browser. <br>
+You will see the plugin in the top menu bar labeled as <strong> "Pipeline" </strong>. </li>
 <li> [Optional] If you want to work in Eclipse, follow these instructions: <br>
 - <a href="https://developer.atlassian.com/display/DOCS/Set+Up+the+Eclipse+IDE+for+Windows"> Set up the Eclipse IDE </a> </li>
 <li> [Optional] You may also want to set up your app link to JIRA, follow our <a href="#installation-instructions"> installation instruction </a> </li>
