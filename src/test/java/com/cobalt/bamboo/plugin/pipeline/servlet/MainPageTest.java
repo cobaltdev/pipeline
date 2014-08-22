@@ -1,4 +1,4 @@
-package ut.com.cobalt.cdpipeline.servlet;
+package com.cobalt.bamboo.plugin.pipeline.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,9 +15,14 @@ import com.atlassian.bamboo.plan.PlanExecutionManager;
 import com.atlassian.bamboo.plan.PlanManager;
 import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.atlassian.sal.api.auth.LoginUriProvider;
+import com.atlassian.sal.api.transaction.TransactionTemplate;
 import com.atlassian.sal.api.user.UserManager;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import com.cobalt.bamboo.plugin.pipeline.servlet.MainPage;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManager;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManagerImpl;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager;
+import com.cobalt.bamboo.plugin.pipeline.Controllers.MainManagerImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -67,23 +72,23 @@ public class MainPageTest {
     
     @Test
     public void testDoGetWithURLParamJsonAllLowerCase() {
-    	testDoGetWithDifferentURLParam("json", "application/json;charset=utf-8");
+    	testDoGetWithDifferentURLParam("all", "application/json;charset=utf-8");
     }
     
     @Test
     public void testDoGetWithURLParamJsonAllUpperCase() {
-    	testDoGetWithDifferentURLParam("JSON", "application/json;charset=utf-8");
+    	testDoGetWithDifferentURLParam("ALL", "application/json;charset=utf-8");
     }
     
     @Test
     public void testDoGetWithURLParamJsonRandomCase() {
-    	testDoGetWithDifferentURLParam("jSoN", "application/json;charset=utf-8");
+    	testDoGetWithDifferentURLParam("aLl", "application/json;charset=utf-8");
     }
     
     // ========== Private Helper Methods ==========
     
     private void testDoGetWithDifferentURLParam(String returnParam, String expected) {
-    	when(mockRequest.getParameter("type")).thenReturn(returnParam);
+    	when(mockRequest.getParameter("data")).thenReturn(returnParam);
     	try {
 			main.doGet(mockRequest, mockResponse);
 		} catch (IOException e) {
@@ -114,8 +119,12 @@ public class MainPageTest {
     	when(applinks.iterator()).thenReturn(applinksIter);
     	when(applinksIter.hasNext()).thenReturn(false);
     	
-    	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), 
-    			mock(PlanManager.class), mock(ResultsSummaryManager.class), 
-    			jiraApplinks, mock(PlanExecutionManager.class));
+    	MainManager mainManager = new MainManagerImpl(mock(PlanManager.class), mock(ResultsSummaryManager.class), 
+				jiraApplinks, mock(PlanExecutionManager.class));
+    	
+    	CacheManager cacheManager = new CacheManagerImpl(mainManager, mock(TransactionTemplate.class));
+    	
+    	
+    	main = new MainPage(userMgr, mock(LoginUriProvider.class), mock(TemplateRenderer.class), cacheManager, mainManager);
     }
 }

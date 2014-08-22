@@ -1,0 +1,116 @@
+/*
+License
+
+Copyright (c) 2014 by Brad Bodine (http://codepen.io/bbodine1/pen/jFxro)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+README
+A Pen created at CodePen.io. You can find this one at http://codepen.io/bbodine1/pen/jFxro.
+*/
+
+
+.notepad, .notepad:before, .notepad:after {
+  	background-color: white;
+  	background-image: -webkit-linear-gradient(#f6abca 1px, transparent 1px), -webkit-linear-gradient(#f6abca 1px, transparent 1px), -webkit-linear-gradient(#e8e8e8 1px, transparent 1px);
+  	background-image: -moz-linear-gradient(#f6abca 1px, transparent 1px), -moz-linear-gradient(#f6abca 1px, transparent 1px), -moz-linear-gradient(#e8e8e8 1px, transparent 1px);
+  	background-image: -o-linear-gradient(#f6abca 1px, transparent 1px), -o-linear-gradient(#f6abca 1px, transparent 1px), -o-linear-gradient(#e8e8e8 1px, transparent 1px);
+ 	background-image: linear-gradient(#f6abca 1px, transparent 1px), linear-gradient(#f6abca 1px, transparent 1px), linear-gradient(#e8e8e8 1px, transparent 1px);
+  	background-size: 1px 1px, 1px 1px, 23px 23px;
+  	background-repeat: repeat-y, repeat-y, repeat;
+  	background-position: 22px 0, 24px 0, 0 50px;
+  	border-radius: 2px;
+  	-webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 4px rgba(0, 0, 0, 0.5);
+  	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.notepad {
+  	position: relative;
+  	padding: 0 20px 14px 20px;
+  	width: 230px;
+  	line-height: 23px;
+  	font-size: 12px;
+  	color: #666;
+  	left: -10%;
+}
+
+.notepad:before, .notepad:after {
+  	content: '';
+  	position: absolute;
+  	z-index: -1;
+  	top: 100%;
+  	left: 3px;
+  	right: 3px;
+  	margin-top: -2px;
+  	height: 4px;
+  	background-size: 1px 1px, 1px 1px, 0 0;
+}
+
+.notepad:before {
+  	z-index: -2;
+  	left: 6px;
+  	right: 6px;
+ 	height: 6px;
+  	background-color: #eee;
+}
+
+.notepad-heading {
+  	position: relative;
+  	margin: 0 -20px 25px -20px;
+  	height: 38px;
+  	background: #14466a;
+  	border-radius: 2px 2px 0 0; 
+  	background-image: -webkit-linear-gradient(top, #226797, #0c3452);
+  	background-image: -moz-linear-gradient(top, #226797, #0c3452);
+  	background-image: -o-linear-gradient(top, #226797, #0c3452);
+  	background-image: linear-gradient(to bottom, #226797, #0c3452);
+  	-webkit-box-shadow: inset 0 1px #2f81ad, 0 2px 1px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 1px black;
+  	box-shadow: inset 0 1px #2f81ad, 0 2px 1px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 1px black;
+  	line-height: 36px;
+  	font-size: 17px;
+  	color: white;
+  	text-align: center;
+  	text-shadow: 0 -1px rgba(0, 0, 0, 0.7);
+}
+
+.notepad-heading:before, .notepad-heading:after {
+  	content: '';
+  	position: absolute;
+  	bottom: 2px;
+  	left: 1px;
+  	right: 1px;
+  	height: 0;
+  	border-top: 1px dashed #617c90;
+  	border-color: rgba(255, 255, 255, 0.35);
+}
+
+.notepad-heading:after {
+  	bottom: 3px;
+  	border-color: #071c2c;
+ 	border-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* statistics */
+
+.comp-stat {
+	width: 250px;
+	position: absolute;
+	top: 110px;
+	right: 30px;
+	font-size: 15px;
+	padding: 5px;
+}	
+
+stat {
+	font-size: 30px;
+	padding-bottom: 30px;
+	color: #3b73af;
+}
+
+.statline {
+	padding: 0px;
+	padding-bottom: 15px;
+}
+

@@ -23,13 +23,30 @@ public class Contributor {
 	 *                       null if username not found on Jira
 	 */
 	public Contributor(String username, Date commitTime, String fullname, String pictureUrl, String profilePageUrl) {
+		this(username, 1, commitTime, fullname, pictureUrl, profilePageUrl);
+		
+	}
+	
+	/**
+	 * Constructs a Contributor object.
+	 * 
+	 * @param username Contributor's username on Bamboo
+	 * @param commitCount Contributor's commits count
+	 * @param commitTime Contributor's commit date
+	 * @param fullname Contributor's full name on Jira, 
+	 *                 null if username not found on Jira
+	 * @param pictureUrl Contributor's pictureUrl from Jira,
+	 *                   null if username not found on Jira 
+	 * @param profilePageUrl Contributor's profilePageUrl from Jira,
+	 *                       null if username not found on Jira
+	 */
+	public Contributor(String username, int commitCount, Date commitTime, String fullname, String pictureUrl, String profilePageUrl) {
 		this.username = username;
-		this.commitCount = 1;
+		this.commitCount = commitCount;
 		this.lastCommit = commitTime;
 		this.fullname = fullname;
 		this.pictureUrl = pictureUrl;
 		this.profilePageUrl = profilePageUrl;
-		
 	}
 	
 	/**

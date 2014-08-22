@@ -1,15 +1,21 @@
 //controller and any services relating to the main boaard
 plugin.controller("BoardController", function ($scope, autoRefresh, $rootScope) {
-	$scope.projectName = "CDPipeline";
+	$rootScope.projectName = "cdpipeline";
 	$scope.results = autoRefresh.data;
 	$rootScope.dataLoaded = false;
+
+	//scroll for new data
+	$scope.totalDisplayed = 15;
+	$scope.loadMore = function() {
+		$scope.totalDisplayed += 5;
+	};
 });
 
 //polls a REST endpoint every five seconds and automatically refreshes
 plugin.factory('autoRefresh', function ($http, $timeout, $rootScope) {
 	var data = { resp: {}};
 	var poller = function() {
-		$http.get('?type=json').then( function(r) {
+		$http.get('?data=all').then( function(r) {
 			data.resp = r.data;
 			$rootScope.dataLoaded = true;
 			$timeout(poller, 5000);
@@ -27,10 +33,10 @@ plugin.filter("emptyToEnd", function () {
 	return function (array, key) {
 		if(!angular.isArray(array)) return;
         var present = array.filter(function (item) {
-            return item[key];
+            return item[key]["lastUpdateTime"];
         });
         var empty = array.filter(function (item) {
-            return !item[key]
+            return !item[key]["lastUpdateTime"];
         });
 		return present.concat(empty);
 	};
@@ -41,13 +47,13 @@ plugin.filter("progressToFront", function () {
 	return function (array, key) {
 		if(!angular.isArray(array)) return;
         var inProgress = array.filter(function (item) {
-            return item[key]["cdpipelineState"] == "CD_IN_PROGRESS";
+            return item[key]["currentBuild"]["cdpipelineState"] == "CD_IN_PROGRESS";
         });
         var queued = array.filter(function (item) {
-        	return item[key]["cdpipelineState"] == "CD_QUEUED";
+        	return item[key]["currentBuild"]["cdpipelineState"] == "CD_QUEUED";
         });
         var finished = array.filter(function (item) {
-            return item[key]["cdpipelineState"] != "CD_IN_PROGRESS" && item[key]["cdpipelineState"] != "CD_QUEUED";
+            return item[key]["currentBuild"]["cdpipelineState"] != "CD_IN_PROGRESS" && item[key]["currentBuild"]["cdpipelineState"] != "CD_QUEUED";
         });
 		return inProgress.concat(queued).concat(finished);
 	};
@@ -72,13 +78,13 @@ function keywordSearch(){
 		searchString = searchString.toLowerCase();
 		// Using the forEach helper method to loop through the array
 		angular.forEach(arr, function(item){
-            if(item.projectName.toLowerCase().indexOf(searchString) !== -1 |
-                item.planName.toLowerCase().indexOf(searchString) !== -1) {
+            if(item.cdresult.projectName.toLowerCase().indexOf(searchString) !== -1 |
+                item.cdresult.planName.toLowerCase().indexOf(searchString) !== -1) {
                     result.push(item);
             }
-            for (i = 0; i < item.contributors.length; i++) {
-                if (item.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
-                     item.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
+            for (i = 0; i < item.cdresult.contributors.length; i++) {
+                if (item.cdresult.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
+                     item.cdresult.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
                     result.push(item);
                 }
             }
@@ -107,6 +113,13 @@ plugin.filter('percentageLimit', function(){
 		} else {
 			return 100;
 		}
-	}
-})
+	};
+});
 
+// Filter that strips the '+' or '-' of letter grades.
+// E.g. from B+ to B.
+plugin.filter('letterOnly', function() {
+	return function(input){
+		return input.substring(0, 1);
+	};
+});

@@ -1,4 +1,4 @@
-var plugin = angular.module("CDPipeline", ['ui.bootstrap', 'ngAnimate']);
+var plugin = angular.module("CDPipeline", ['ui.bootstrap', 'ngAnimate', 'infinite-scroll']);
 
 //used to prevent IE caching which blocks live updates
 plugin.config(['$httpProvider', function($httpProvider) {

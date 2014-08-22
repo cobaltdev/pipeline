@@ -14,7 +14,9 @@ import com.atlassian.bamboo.applinks.JiraApplinksService;
 import com.atlassian.bamboo.author.Author;
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.commit.Commit;
+import com.atlassian.bamboo.plan.Plan;
 import com.atlassian.bamboo.resultsummary.ResultsSummary;
+import com.atlassian.bamboo.resultsummary.ResultsSummaryManager;
 import com.google.common.collect.ImmutableList;
 
 import static org.junit.Assert.*;
@@ -157,8 +159,11 @@ public class SetLastDeploymentInfoTest {
 			}
 		}
 		
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals("Date of last deployment doesn't match.", 
 						(new Date(3)).getTime(), cdr.getLastDeploymentTime().getTime());
@@ -179,8 +184,11 @@ public class SetLastDeploymentInfoTest {
 			when(crs.isSuccessful()).thenReturn(true);
 		}
 		
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals("Date of last deployment doesn't match.", 
 						(new Date(2)).getTime(), cdr.getLastDeploymentTime().getTime());
@@ -194,8 +202,11 @@ public class SetLastDeploymentInfoTest {
 	@Test 
 	public void testNoBuild() {
 		List<ResultsSummary> emptyBuildList = new ArrayList<ResultsSummary>();
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(emptyBuildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, emptyBuildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals("No build should have no change.", 0, cdr.getNumChanges());
 		assertEquals("No build should have no contributor.", new HashSet<Contributor>(), cdr.getContributors());
@@ -207,8 +218,11 @@ public class SetLastDeploymentInfoTest {
 	@Test
 	public void testOneBuildSuccessful() {
 		List<ResultsSummary> buildList = createBuildList(1, 0);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 			
 		assertEquals("Build with size 1 should have 1 change.", 1, cdr.getNumChanges());		
 		assertEquals("Build with size 1  should have 1 contributor.", 1, cdr.getContributors().size());
@@ -218,8 +232,11 @@ public class SetLastDeploymentInfoTest {
 	@Test
 	public void testOneBuildFailed() {
 		List<ResultsSummary> buildList = createBuildList(1, -1);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals("Build with size 1 should have 1 change.", 1, cdr.getNumChanges());		
 		assertEquals("Build with size 1 should have 1 contributor.", 1, cdr.getContributors().size());
@@ -232,8 +249,11 @@ public class SetLastDeploymentInfoTest {
 	public void testFiveBuildsNoDeployment() {
 		// N N N N N        (Is deployment? Y/N)
 		List<ResultsSummary> buildList = createBuildList(5, -1);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals("Buildlist with no deployment should add up all changes", 15, cdr.getNumChanges());		
 		assertEquals("Buildlist with no deployment should add up all contributors", 5, cdr.getContributors().size());
@@ -244,8 +264,11 @@ public class SetLastDeploymentInfoTest {
 	public void testFiveBuildsOneNewestDeployment() {
 		// N N N N Y
 		List<ResultsSummary> buildList = createBuildList(5, 0);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals("Buildlist with the last build as deployment should add up all changes.", 15, cdr.getNumChanges());		
 		assertEquals("Buildlist with the last build as deployment should add up all contributors.", 5, cdr.getContributors().size());
@@ -256,8 +279,11 @@ public class SetLastDeploymentInfoTest {
 	public void testFiveBuildsSecondNewestDeployment() {
 		// N N N Y N
 		List<ResultsSummary> buildList = createBuildList(5, 1);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 			
 		assertEquals("Should only count the changes in the newest build", 1, cdr.getNumChanges());		
 		assertEquals("Should only count the contributors in the newest build", 1, cdr.getContributors().size());
@@ -269,8 +295,11 @@ public class SetLastDeploymentInfoTest {
 	public void testFiveBuildsMidDeployment() {
 		// N N Y N N
 		List<ResultsSummary> buildList = createBuildList(5, 2);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		assertEquals(3, cdr.getNumChanges());		
 		assertEquals(2, cdr.getContributors().size());
@@ -281,23 +310,78 @@ public class SetLastDeploymentInfoTest {
 	public void testFiveBuildsOldestDeployment() {
 		// Y N N N N 
 		List<ResultsSummary> buildList = createBuildList(5, 4);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 			
 		assertEquals("Should add up #changes up to the oldest build.", 10, cdr.getNumChanges());		
 		assertEquals("Should add the contributors up to the oldest build.", 4, cdr.getContributors().size());
 		assertEquals("Should be the date of the oldest build", new Date(2014, 1, 1, 1, 1, 1), cdr.getLastDeploymentTime());	
 	}
 	
+	@Test
+	public void test50BuildsWithRandomDeploymentPosition1(){
+		List<ResultsSummary> buildList = createBuildList(50, 49);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
+		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
+			
+		assertEquals("Should add up #changes up to the oldest build.", 1225, cdr.getNumChanges());		
+		assertEquals("Should add the contributors up to the oldest build.", 49, cdr.getContributors().size());
+		assertEquals("Should be the date of the oldest build", new Date(2014, 1, 1, 1, 1, 1), cdr.getLastDeploymentTime());	
+	}
+	
+	@Test
+	public void test50BuildsWithRandomDeploymentPosition2(){
+		List<ResultsSummary> buildList = createBuildList(50, 25);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
+		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
+			
+		assertEquals("Should add up #changes up to the oldest build.", 325, cdr.getNumChanges());		
+		assertEquals("Should add the contributors up to the oldest build.", 25, cdr.getContributors().size());
+		assertEquals("Should be the date of the oldest build", new Date(2014, 1, 1, 1, 1, 1), cdr.getLastDeploymentTime());	
+	}
+	
+	@Test
+	public void test50BuildsWithRandomDeploymentPosition3(){
+		List<ResultsSummary> buildList = createBuildList(50, 30);
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
+		
+		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
+			
+		assertEquals("Should add up #changes up to the oldest build.", 465, cdr.getNumChanges());		
+		assertEquals("Should add the contributors up to the oldest build.", 30, cdr.getContributors().size());
+		assertEquals("Should be the date of the oldest build", new Date(2014, 1, 1, 1, 1, 1), cdr.getLastDeploymentTime());	
+	}
 	
 	// ========== Private Helper Methods ==========
+	
+	private ResultsSummaryManager mockResultsSummaryManagerForBuildList(List<ResultsSummary> buildList, Plan plan){
+		ResultsSummaryManager rsMng = mock(ResultsSummaryManager.class);
+		when(rsMng.getResultSummariesForPlan(plan, 0, 1)).thenReturn(buildList.subList(0, Math.min(1, buildList.size())));
+		for(int i = 1; i < buildList.size(); i+=10){
+			when(rsMng.getResultSummariesForPlan(plan, i, 10)).thenReturn(buildList.subList(i, Math.min(i + 10, buildList.size())));
+		}
+		return rsMng;
+	}
 	
 	private void testFiveBuildsWithTwoDeploymentsAtDifferentPos(int pos1, int pos2, int expectedPos) {
 		List<ResultsSummary> buildList = makeNormalSizeBuildList();
 		setTwoDeployments(buildList, pos1, pos2);
 		
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(buildList, plan);
 		CDResult cdr = new CDResult("Project", "Plan", "project", "plan");
-		CDResultFactory.setLastDeploymentInfo(cdr, buildList, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		
 		// Last deployment should be second one in the buildList
 		
@@ -378,8 +462,11 @@ public class SetLastDeploymentInfoTest {
 		List<ResultsSummary> builds = new ArrayList<ResultsSummary>();
 		builds.add(rs1);
 		builds.add(rs2);
+		
+		Plan plan = mock(Plan.class);
+		ResultsSummaryManager rsMng = mockResultsSummaryManagerForBuildList(builds, plan);
 		CDResult cdr = new CDResult("test", "test", "test", "test");
-		CDResultFactory.setLastDeploymentInfo(cdr, builds, cb);
+		CDResultFactory.setLastDeploymentInfo(cdr, plan, rsMng, cb);
 		return cdr;
 	}
 	

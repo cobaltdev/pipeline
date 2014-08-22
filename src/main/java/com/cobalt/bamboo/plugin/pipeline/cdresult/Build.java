@@ -1,5 +1,7 @@
 package com.cobalt.bamboo.plugin.pipeline.cdresult;
 
+import java.util.Date;
+
 import com.atlassian.bamboo.chains.ChainResultsSummary;
 import com.atlassian.bamboo.progressbar.ProgressBar;
 
@@ -65,7 +67,7 @@ public class Build {
 				}
 			} else if (buildResult.isFailed()) {
 				return CDPipelineState.CD_FAILED;
-			} else if (buildResult.isInProgress()) {
+			} else if (buildResult.isInProgress() || getPercentageCompleted() > 0) {
 				return CDPipelineState.CD_IN_PROGRESS;
 			} else if (buildResult.isQueued()) {
 				return CDPipelineState.CD_QUEUED;
@@ -99,5 +101,29 @@ public class Build {
 			return progressBar.getPrettyTimeRemaining(false);
 		}
 		return null;
+	}
+	
+	/**
+	 * Get the completed date of this build.
+	 * 
+	 * @return the completed Date of this build.
+	 */
+	public Date getBuildCompletedDate() {
+		if(buildResult == null){
+			return null;
+		}
+		return buildResult.getBuildCompletedDate();
+	}
+	
+	/**
+	 * Return whether this build is successful.
+	 * 
+	 * @return true if this build is successful, false otherwise.
+	 */
+	public boolean isSuccessful() {
+		if(buildResult == null){
+			return false;
+		}
+		return buildResult.isSuccessful();
 	}
 }

@@ -1,0 +1,124 @@
+/*
+License
+
+Copyright (c) 2014 by David Kolodij (http://codepen.io/david_kolodij/pen/DwLkj)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+README
+
+A Pen created at CodePen.io. You can find this one at http://codepen.io/david_kolodij/pen/DwLkj.
+Design by Nicolas Gallagher that I like. From here: http://jsfiddle.net/necolas/vhZds/light/
+Forked from [AlexO](http://codepen.io/AlexO/)'s Pen [Comments](http://codepen.io/AlexO/pen/dFaIq/).
+*/
+
+
+/* list of changes */
+
+p {
+    margin: 0 0 1em;
+}
+
+.comment {
+    overflow: hidden;
+    margin: 0 0 1em;
+    *zoom: 1;
+}
+
+.comment-img {
+    float: left;
+    margin-right: 33px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.comment-img img {
+    display: block;
+}
+
+.comment-body {
+    overflow: hidden;
+}
+
+.comment-body:hover .text {
+    background: #ebf2f9;
+}
+
+.comment-body:hover .text:before {
+    background: #ebf2f9;
+}
+
+.comment .text {
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.comment .text p:last-child {
+    margin: 0;
+}
+
+.comment .attribution {
+    margin: 0.5em 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.comments, .comment {
+    position: relative;
+}
+
+.comments:before, .comment:before, .comment .text:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 65px;
+}
+
+/* draw the vertical line between icon and comments */
+.comments:before {
+    width: 3px;
+    top: -20px;
+    bottom: -20px;
+    background: rgba(0,0,0,0.1);
+}
+
+.comment:before {
+    width: 9px;
+    height: 9px;
+    border: 3px solid #fff;
+    border-radius: 100px;
+    margin: 16px 0 0 -6px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
+    background: #ccc;
+}
+
+.comment:hover:before {
+    background: #7791d6;
+}
+
+.comment .text:before {
+    top: 18px;
+    left: 78px;
+    width: 9px;
+    height: 9px;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #e5e5e5;
+    background: #fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+}
+
+.attribution {
+	display: block;
+	float: right;
+}
+
+.change-author {
+	color: #3b73af;
+}

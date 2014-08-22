@@ -22,10 +22,19 @@
   	<resource type="download" name="plugin.js" location="/js/plugin.js"/>
   	<resource type="download" name="boardcontroller.js" location="/js/boardcontroller.js"/>
   	<resource type="download" name="maincontroller.js" location="/js/modalcontroller.js"/>
+  	<resource type="download" name="copy.js" location="/js/copy.js"/>
   	
     <resource type="download" name="cdpipeline.css" location="/css/cdpipeline.css"/>
+    <resource type="download" name="changeList.css" location="/css/changeList.css"/>
+    <resource type="download" name="completionList.css" location="/css/completionList.css"/>
+    <resource type="download" name="notepad.css" location="/css/notepad.css"/>
+    <resource type="download" name="stamp.css" location="/css/stamp.css"/>
+    
+    
     <resource type="download" name="cdpipeline.js" location="/js/cdpipeline.js"/>
-   
+    <resource type="download" name="scrollToTop.js" location="/js/scrollToTop.js"/>
+    <resource type="download" name="infinitescroll.js" location="/js/infinitescroll.js"/>
+    
     <resource type="download" name="images/" location="/images"/>
     
     <context>cdpipeline</context>
@@ -33,6 +42,17 @@
   <!-- publish our component -->
   <component key="myPluginComponent" class="com.cobalt.bamboo.plugin.pipeline.MyPluginComponentImpl" public="true">
     <interface>com.cobalt.bamboo.plugin.pipeline.MyPluginComponent</interface>
+  </component>
+  <component key="cacheManager" class="com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManagerImpl" public="true">
+    <interface>com.cobalt.bamboo.plugin.pipeline.Controllers.CacheManager</interface>
+  </component>
+  <component key="mainManager" class="com.cobalt.bamboo.plugin.pipeline.Controllers.MainManagerImpl" public="true">
+  	<interface>com.cobalt.bamboo.plugin.pipeline.Controllers.MainManager</interface>
+  </component>
+  <component key="schedulerComponent" class="com.cobalt.bamboo.plugin.pipeline.Controllers.CacheRefreshMonitorImpl"
+             system="true" public="true">
+        <interface>com.atlassian.sal.api.lifecycle.LifecycleAware</interface>
+        <interface>com.cobalt.bamboo.plugin.pipeline.Controllers.CacheRefreshMonitor</interface>
   </component>
   <!-- import from the product container -->
   <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
@@ -52,8 +72,20 @@
   
   <component-import key="planExecutionManager" interface="com.atlassian.bamboo.plan.PlanExecutionManager" />
   
+  <component-import key="transactionTemplate" interface="com.atlassian.sal.api.transaction.TransactionTemplate" />
+  
+  <component-import key="pluginScheduler">
+  	<description>SAL Scheduler</description>
+  	<interface>com.atlassian.sal.api.scheduling.PluginScheduler</interface>
+  </component-import>
+   
   <servlet name="Main Page" i18n-name-key="main-page.name" key="main-page" class="com.cobalt.bamboo.plugin.pipeline.servlet.MainPage">
     <description key="main-page.description">The Main Page Plugin</description>
     <url-pattern>/cdpipeline</url-pattern>
   </servlet>
+  
+  <bambooEventListener key="buildActivityListener" name="Build Activity Listener"
+               class="com.cobalt.bamboo.plugin.pipeline.Controllers.BuildActivityListener">
+    <description>Listens for if a build has any activity.</description>
+  </bambooEventListener>
 </atlassian-plugin>

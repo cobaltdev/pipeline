@@ -1,0 +1,43 @@
+/*
+License
+
+Copyright (c) 2014 by Domenico (http://codepen.io/domenicosolazzo/pen/msJvi)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+README
+A Pen created at CodePen.io. You can find this one at http://codepen.io/domenicosolazzo/pen/msJvi.
+*/
+
+#stamp {
+  	font-size: 45px;
+  	font-weight: bold;
+  	color: red;
+  	border: 5px solid red;
+  	width: 70px;
+  	height: 70px;
+  	text-align: center;
+	padding-top: 18px;  
+  	border-radius: 50%;
+  
+  	opacity: 0.8;
+  	-webkit-transform: rotate(-10deg);
+  	-o-transform: rotate(-10deg);
+  	-moz-transform: rotate(-10deg);
+  	-ms-transform: rotate(-10deg);
+ 	position: absolute;
+  	top: 20%;
+ 	left: 65%;
+}
+
+#stamp::after {
+  	position: absolute;
+  	content: " ";
+  	width: 100%;
+  	height: auto;
+  	min-height: 100%;
+  	top: -10px;
+  	left: -10px;
+  	background: url(https://raw.github.com/domenicosolazzo/css3/master/img/noise.png) repeat;
+}

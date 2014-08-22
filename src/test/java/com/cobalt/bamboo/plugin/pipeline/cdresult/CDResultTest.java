@@ -169,23 +169,6 @@ public class CDResultTest {
 		}
 	}
 	
-	// Test the sorting of Contributors in CDResult.
-	@Test
-	public void numCommitSortingTestOfContributors(){
-		CDResult cdr = new CDResult("test", "test", "test", "test");
-		cdr.addContributor(test1);
-		cdr.updateContributor("test 1", current);
-		cdr.updateContributor("test 1", current);
-		cdr.addContributor(test2);
-		cdr.updateContributor("test 2", test2.getLastCommitTime());
-		cdr.addContributor(test3);
-		List<Contributor> contributors = cdr.getContributorsSortedByNumCommits();
-		assertEquals("There should not be dulplicate identical Contributors", 3, contributors.size());
-		assertEquals("The list of Contributors should be sorted by number of commits", test1.getUsername(), contributors.get(0).getUsername());
-		assertEquals("The list of Contributors should be sorted by number of commits", test2.getUsername(), contributors.get(1).getUsername());
-		assertEquals("The list of Contributors should be sorted by number of commits", test3.getUsername(), contributors.get(2).getUsername());
-	}
-	
 	@Test
 	public void lastCommitTimeSortingTestOfContributors(){
 		CDResult cdr = new CDResult("test", "test", "test", "test");

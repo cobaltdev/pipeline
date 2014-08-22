@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
   <name>cdpipeline</name>
-  <comment>This is the com.cobalt.cdpipeline:cdpipeline plugin for Atlassian Bamboo. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <comment>Real-time pipeline wallboard that provides an intuitive view and encourages continuous delivery practices. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

@@ -18,7 +18,33 @@
         <amps.version>5.0.3</amps.version>
         <plugin.testrunner.version>1.2.0</plugin.testrunner.version>
     </properties>
-   <dependencies>
+    <scm>
+        <connection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</connection>
+        <developerConnection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/
+        </developerConnection>
+        <url>http://perforce.cobaltgroup.com/ReleaseEngineering/CDPipeline/trunk/</url>
+    </scm>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>repo</name>
+            <url>http://artifactory.cobalt.com/artifactory/repo</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>repo</name>
+            <url>http://artifactory.cobalt.com/artifactory/repo</url>
+        </repository>
+    </repositories>
+    <dependencies>
         <dependency>
             <groupId>com.atlassian.bamboo</groupId>
             <artifactId>atlassian-bamboo-web</artifactId>
@@ -76,7 +102,7 @@
         <dependency>
   			<groupId>com.atlassian.sal</groupId>
   			<artifactId>sal-api</artifactId>
-  			<version>2.0.17</version>
+  			<version>2.10.0</version>
   			<scope>provided</scope>
 		</dependency>
 		<dependency>
