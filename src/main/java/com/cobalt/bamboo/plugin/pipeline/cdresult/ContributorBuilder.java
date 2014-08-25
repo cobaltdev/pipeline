@@ -22,13 +22,16 @@ public class ContributorBuilder {
 		if(jiraApplinksService == null){
 			throw new IllegalArgumentException("Arguments can't be null.");
 		}
-		
-		Iterator<ApplicationLink> appLinks = jiraApplinksService.getJiraApplicationLinks().iterator();
-		if (appLinks.hasNext()) {
-			jiraBaseUrl = appLinks.next().getRpcUrl().toString();
-		} else {
-			jiraBaseUrl = null;
-		}
+        jiraBaseUrl = null;
+
+        Iterable<ApplicationLink> appLinkService = jiraApplinksService.getJiraApplicationLinks();
+        if (appLinkService != null || appLinkService.iterator() != null) {
+            Iterator<ApplicationLink> appLinks = jiraApplinksService.getJiraApplicationLinks().iterator();
+            if (appLinks.hasNext()) {
+                jiraBaseUrl = appLinks.next().getRpcUrl().toString();
+            }
+        }
+
 	}
 	
 	/**
