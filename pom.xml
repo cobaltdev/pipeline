@@ -15,35 +15,9 @@
     <properties>
         <bamboo.version>5.5.1</bamboo.version>
         <bamboo.data.version>5.3</bamboo.data.version>
-        <amps.version>5.0.3</amps.version>
+        <amps.version>5.0.4</amps.version>
         <plugin.testrunner.version>1.2.0</plugin.testrunner.version>
     </properties>
-    <scm>
-        <connection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/</connection>
-        <developerConnection>scm:perforce:perforce.cobaltgroup.com:1667://ReleaseEngineering/CDPipeline/trunk/
-        </developerConnection>
-        <url>http://perforce.cobaltgroup.com/ReleaseEngineering/CDPipeline/trunk/</url>
-    </scm>
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>repo</name>
-            <url>http://artifactory.cobalt.com/artifactory/repo</url>
-        </pluginRepository>
-    </pluginRepositories>
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>repo</name>
-            <url>http://artifactory.cobalt.com/artifactory/repo</url>
-        </repository>
-    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.atlassian.bamboo</groupId>
@@ -100,23 +74,23 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-  			<groupId>com.atlassian.sal</groupId>
-  			<artifactId>sal-api</artifactId>
-  			<version>2.10.0</version>
-  			<scope>provided</scope>
-		</dependency>
-		<dependency>
-  			<groupId>com.atlassian.templaterenderer</groupId>
-  			<artifactId>atlassian-template-renderer-api</artifactId>
-  			<version>1.1.1</version>
-  			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-lgpl</artifactId>
-			<version>1.9.13</version>
+            <groupId>com.atlassian.sal</groupId>
+            <artifactId>sal-api</artifactId>
+            <version>2.10.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.templaterenderer</groupId>
+            <artifactId>atlassian-template-renderer-api</artifactId>
+            <version>1.1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-lgpl</artifactId>
+            <version>1.9.13</version>
             <scope>compile</scope>
-		</dependency>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -126,7 +100,7 @@
                 <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                	<compressResources>false</compressResources>
+                    <compressResources>false</compressResources>
                     <productVersion>${bamboo.version}</productVersion>
                     <productDataVersion>${bamboo.data.version}</productDataVersion>
                 </configuration>
