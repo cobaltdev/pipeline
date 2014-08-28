@@ -82,12 +82,6 @@ function keywordSearch(){
                 item.cdresult.planName.toLowerCase().indexOf(searchString) !== -1) {
                     result.push(item);
             }
-            for (i = 0; i < item.cdresult.contributors.length; i++) {
-                if (item.cdresult.contributors[i].username.toLowerCase().indexOf(searchString) !== -1 |
-                     item.cdresult.contributors[i].fullname.toLowerCase().indexOf(searchString) !== -1) {
-                    result.push(item);
-                }
-            }
         });
         
 		return result;
