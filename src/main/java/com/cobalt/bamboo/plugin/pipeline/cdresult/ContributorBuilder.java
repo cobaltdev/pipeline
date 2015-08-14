@@ -52,7 +52,7 @@ public class ContributorBuilder {
 			String profilePageUrl = jiraBaseUrl + JIRA_PROFILE_PATH + username;
 			return new Contributor(username, lastCommitDate, fullName, pictureUrl, profilePageUrl);
 		} else {
-			return new Contributor(username, lastCommitDate, fullName, null, null);
+			return new Contributor(username, lastCommitDate, fullName, "http://lorempixel.com/32/32/cats/", null);
 		}
 	}
 }
